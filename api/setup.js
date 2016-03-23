@@ -91,7 +91,7 @@ module.exports.setup = function (callback) {
 
                     // add all loincs to ES
                     var rl = readLine.createInterface({
-                        input: require('fs').createReadStream('loinc.csv')
+                        input: require('fs').createReadStream(__dirname + '/loinc.csv')
                     }).on('line', function (line) {
                         linesRead += 1;
 

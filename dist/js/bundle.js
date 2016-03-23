@@ -108,16 +108,16 @@ var Results = React.createClass({displayName: "Results",
                 }
 
                 return (
-                    React.createElement("li", {key: item._id, onClick: t._clearSearch, className: statusClass}, 
+                    React.createElement("li", {key: item._id, onClick: t._clearSearch, className: statusClass},
                         React.createElement("span", {className: "loinc-num"}, item._source.loincNum),
                         React.createElement("span", {className: "name"}, item._source.longCommonName),
                         React.createElement("div", {className: "left"},
-                            property,
+                            property, 
                             system
                         ),
                         React.createElement("div", {className: "right"},
                             method,
-                            time,
+                            time, 
                             units
                         ), 
                         React.createElement("div", {className: "clear"})
