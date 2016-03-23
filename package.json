@@ -1,0 +1,31 @@
+{
+  "name": "LOINCSearch",
+  "version": "0.0.1",
+  "description": "LOINC Search",
+  "main": "api/server.js",
+  "scripts": {
+    "start": "node api/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Esteban Lohr",
+  "dependencies": {
+    "csv": "^0.4.6",
+    "elasticsearch": "^10.1.3",
+    "express": "^4.13.4",
+    "flux": "^2.1.1",
+    "object-assign": "^4.0.1",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "request": "^2.69.0",
+    "superagent": "^1.8.2"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-sass": "^2.2.0",
+    "gulp-util": "^3.0.7",
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

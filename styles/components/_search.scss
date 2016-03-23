@@ -1,0 +1,123 @@
+#search-form {
+  background-color: $brand-color;
+  padding: 16px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#search-input {
+  display: block;
+  padding: 8px;
+  font-size: 1.3em;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 2px;
+  margin: 80px auto 0 auto;
+  outline: 0;
+  border: 1px solid $light-brand-color;
+  color: #CCCCCC;
+  transition: all 0.2s;
+}
+
+#search-input.active {
+  color: #222222;
+  border: 1px solid #FFFFFF;
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.40);
+}
+
+#search-results {
+  width: 90%;
+  max-width: 640px;
+  display: block;
+  margin: 0 auto;
+  background: #FFFFFF;
+  border-radius: 2px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.20);
+  padding: 0;
+  opacity: 0;
+  transition: all 0.3s;
+  transition-timing-function: ease-in-out;
+}
+
+#search-results.show {
+  opacity: 1.0;
+  margin-top: 180px;
+}
+
+#search-results li {
+  list-style: none;
+  padding: 16px;
+  border-bottom: 1px solid #DDDDDD;
+  cursor: pointer;
+}
+
+#search-results li:hover {
+  background: $lighter-grey;
+}
+
+#search-results li:last-child {
+  border-bottom: 0;
+}
+
+#search-results li.no-results {
+  text-align: center;
+  color: #888888;
+  cursor: default;
+}
+
+#search-results li.no-results:hover {
+  background: transparent !important;
+}
+
+//LOINC Item
+.name {
+  font-weight: 600;
+  display: block;
+}
+.method {
+  margin-left: 12px;
+  color: $mid-grey;
+  float: right;
+}
+.property {
+  margin-left: 12px;
+  color: $mid-grey;
+  float: right;
+}
+.system {
+  margin-left: 12px;
+  color: $mid-grey;
+  float: right;
+}
+.time-aspect {
+  margin-left: 12px;
+  color: $mid-grey;
+  float: right;
+}
+.loinc-num {
+  color: $accent-color;
+  float: left;
+}
+.units {
+  margin-left: 12px;
+  color: $mid-grey;
+  float: right;
+}
+
+.other span {
+  font-weight: 400 !important;
+  color: $mid-light-grey !important;
+}
+
+/* Hack */
+.clear:before,
+.clear:after {
+  content: " ";
+  display: table;
+}
+.clear:after {
+  clear: both;
+}

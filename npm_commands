@@ -1,0 +1,18 @@
+npm install --save --no-bin-links express
+npm install --save --no-bin-links flux
+npm install --save --no-bin-links react
+npm install --save --no-bin-links react-dom
+npm install --save --no-bin-links superagent
+npm install --save --no-bin-links request
+npm install --save --no-bin-links csv
+npm install --save --no-bin-links elasticsearch
+npm install --save --no-bin-links object-assign
+
+sudo npm install --g gulp
+npm install --save-dev --no-bin-links gulp
+npm install --save-dev --no-bin-links gulp-util
+npm install --save-dev --no-bin-links gulp-sass
+npm install --save-dev --no-bin-links gulp-autoprefixer
+npm install --save-dev --no-bin-links browserify
+npm install --save-dev --no-bin-links reactify
+npm install --save-dev --no-bin-links vinyl-source-stream
