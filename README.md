@@ -1,5 +1,5 @@
 ## LOINCSearch
-### Tech
+### Stack
 **Front End:** React + Flux Project
 
 **Backend:** Node.js and ElasticSearch
