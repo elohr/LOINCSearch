@@ -179,7 +179,7 @@ exports.property = [
     {key: 'Visc', val: 'Viscosity'},
     {key: 'Zscore', val: 'Z Score'},
     {key: 'Pn', val: 'Person name'},
-    {key: 'Pr', val: 'Presence'},
+    //{key: 'Pr', val: 'Presence'},
     {key: 'ID', val: 'Identifier'}
 ];
 
