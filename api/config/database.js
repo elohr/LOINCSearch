@@ -21,13 +21,13 @@ module.exports = {
                 filter: {
                     nGram_filter: {
                         type: 'nGram',
-                        min_gram: 1,
+                        min_gram: 2,
                         max_gram: 20,
                         token_chars: ["letter", "digit"]
                     },
                     length_filter: {
                         type: 'length',
-                        min: 1,
+                        min: 2,
                         max: 20
                     }
                 },

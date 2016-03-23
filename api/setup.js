@@ -17,19 +17,19 @@ var createLoinc = function (fields) {
         methodAbbreviationsLength = abb.method.length;
 
     for (var i = 0; i < propAbbreviationsLength; i++) {
-        fullProperty.replace(abb.property[i].key, abb.property[i].val);
+        fullProperty = fullProperty.replace(abb.property[i].key, abb.property[i].val);
     }
 
     for (var i = 0; i < timeAbbreviationsLength; i++) {
-        fullTime.replace(abb.time[i].key, abb.time[i].val);
+        fullTime = fullTime.replace(abb.time[i].key, abb.time[i].val);
     }
 
     for (var i = 0; i < systemAbbreviationsLength; i++) {
-        fullSystem.replace(abb.system[i].key, abb.system[i].val);
+        fullSystem = fullSystem.replace(abb.system[i].key, abb.system[i].val);
     }
 
     for (var i = 0; i < methodAbbreviationsLength; i++) {
-        fullMethod.replace(abb.method[i].key, abb.method[i].val);
+        fullMethod = fullMethod.replace(abb.method[i].key, abb.method[i].val);
     }
 
     return {

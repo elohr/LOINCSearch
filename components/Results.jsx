@@ -69,13 +69,17 @@ var Results = React.createClass({
 
                 return (
                     <li key={item._id} onClick={t._clearSearch} className={statusClass}>
-                        <span className="name">{item._source.longCommonName}</span>
                         <span className="loinc-num">{item._source.loincNum}</span>
-                        {method}
-                        {property}
-                        {system}
-                        {time}
-                        {units}
+                        <span className="name">{item._source.longCommonName}</span>
+                        <div className="left">
+                            {property}
+                            {system}
+                        </div>
+                        <div className="right">
+                            {method}
+                            {time}
+                            {units}
+                        </div>
                         <div className="clear"></div>
                     </li>
                 );

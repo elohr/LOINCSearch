@@ -6,9 +6,9 @@
  * Clear inner floats
  */
 .clearfix::after {
+  display: table;
   clear: both;
   content: '';
-  display: table;
 }
 
 /**
@@ -18,11 +18,11 @@
  * 3. Leave some space on the edges, especially valuable on small screens
  */
 .container {
-  max-width: $max-width; /* 1 */
+  margin-right: auto; /* 1 */
   margin-left: auto; /* 2 */
-  margin-right: auto; /* 2 */
+  padding-right: 20px; /* 2 */
   padding-left: 20px; /* 3 */
-  padding-right: 20px; /* 3 */
+  max-width: $max-width; /* 3 */
   width: 100%; /* 1 */
  }
 
@@ -43,13 +43,34 @@
  * Shamelessly borrowed from HTML5Boilerplate:
  * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
  */
-.visually-hidden { 
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
+.visually-hidden {
   position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  padding: 0;
   width: 1px;
+  height: 1px;
+  border: 0;
+}
+
+.left {
+  float: left;
+  width: 50%;
+}
+
+.right {
+  float: right;
+  width: 50%;
+}
+
+/* Hack */
+.clear:before,
+.clear:after {
+  display: table;
+  content: " ";
+}
+
+.clear:after {
+  clear: both;
 }
