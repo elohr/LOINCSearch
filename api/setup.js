@@ -46,8 +46,122 @@ var createLoinc = function (fields) {
         status: fields[7],
         relatedNames: fields[8],
         units: fields[9],
-        longCommonName: fields[10]
+        longCommonName: fields[10],
+        utilization: fields[12]
     };
+};
+
+module.exports.getMapping = function (fields) {
+    return {
+        name: fields[1],
+        reference_range_low: fields[5],
+        reference_range_high: fields[6],
+        reference_range_string: fields[7],
+        units: fields[9]
+    };
+};
+
+module.exports.addMappings = function (callback, lines, linesLength, startPos) {
+    var startPos = startPos || 0,
+        lineContents;
+
+    if (lines == null) {
+        lineContents = require('fs').readFileSync(__dirname + '/name_mappings.csv').toString();
+    }
+
+    var lines = lines || lineContents.split('\n'),
+        linesLength = linesLength || lines.length;
+
+    console.log('Total Mappings left are: ' + (linesLength - startPos));
+
+    csv.parse(lines[startPos], function (err, data) {
+        startPos += 1;
+
+        if (err) {
+            console.log('Error parsing line mapping: ' + err);
+            module.exports.addMappings(callback, lines, linesLength, startPos);
+            if (startPos === linesLength) {
+                console.log('All Lines processed mapping: ' + startPos);
+                callback();
+            }
+            return;
+        }
+
+        var fields = data[0];
+
+        if (fields && fields.length > 0) {
+            var mapping = module.exports.getMapping(fields);
+
+            esClient.get({
+                index: configDB.elasticsearch.indexName,
+                type: 'loinc',
+                id: fields[16]
+            }, function (err, res) {
+                if (err) {
+                    console.log('Error getting loinc to add mapping: ' + err);
+                    module.exports.addMappings(callback, lines, linesLength, startPos);
+                    if (startPos === linesLength) {
+                        console.log('All Lines processed mapping: ' + startPos);
+                        callback();
+                    }
+                    return;
+                }
+
+                if (!res.found) {
+                    console.log('LOINC was not found when adding mapping');
+                    module.exports.addMappings(callback, lines, linesLength, startPos);
+                    if (startPos === linesLength) {
+                        console.log('All Lines processed mapping: ' + startPos);
+                        callback();
+                    }
+                    return;
+                }
+
+                if (res._source.alts) {
+                    if (res._source.alts instanceof Array) {
+                        res._source.alts.push(mapping);
+                    } else {
+                        res._source.alts = [res._source.alts, mapping];
+                    }
+                } else {
+                    res._source.alts = [mapping];
+                }
+
+                esClient.update({
+                    index: configDB.elasticsearch.indexName,
+                    type: 'loinc',
+                    id: fields[16],
+                    refresh: true,
+                    body: {
+                        doc: res._source
+                    }
+                }, function (err, res) {
+                    if (err) {
+                        console.log('Error adding line mapping: ' + err);
+                        module.exports.addMappings(callback, lines, linesLength, startPos);
+                        if (startPos === linesLength) {
+                            console.log('All Lines processed mapping: ' + startPos);
+                            callback();
+                        }
+                        return;
+                    }
+
+                    module.exports.addMappings(callback, lines, linesLength, startPos);
+                    if (startPos === linesLength) {
+                        console.log('All Lines processed mapping: ' + startPos);
+                        callback();
+                    }
+                });
+            });
+        } else {
+            console.log('Could not get fields from line');
+            module.exports.addMappings(callback, lines, linesLength, startPos);
+            if (startPos === linesLength) {
+                console.log('All Lines processed mapping: ' + startPos);
+                callback();
+            }
+        }
+    });
 };
 
 module.exports.setup = function (callback) {
@@ -91,7 +205,7 @@ module.exports.setup = function (callback) {
 
                     // add all loincs to ES
                     var rl = readLine.createInterface({
-                        input: require('fs').createReadStream(__dirname + '/loinc.csv')
+                        input: require('fs').createReadStream(__dirname + '/loinc_complete.csv')
                     }).on('line', function (line) {
                         linesRead += 1;
 
@@ -113,7 +227,8 @@ module.exports.setup = function (callback) {
                             esClient.index({
                                 index: configDB.elasticsearch.indexName,
                                 type: 'loinc',
-                                body: loinc
+                                body: loinc,
+                                id: fields[11]
                             }, function (err, res) {
                                 if (err) {
                                     console.log('Error adding line: ' + err);
@@ -129,8 +244,13 @@ module.exports.setup = function (callback) {
                             });
                         });
                     }).on('close', () => {
-                        console.log('All Lines read: ' + linesRead);
-                        callback();
+                        console.log('All Lines read: ' + linesRead + '. Will add mappings in 5 seconds.');
+
+                        // after 5 seconds, to make sure all loinc codes have been added, read the mapping files and add each mapping as alt names
+                        setTimeout(function () {
+                            console.log('Adding mappings...');
+                            module.exports.addMappings(callback);
+                        }, 5000);
                     });
                 });
             });

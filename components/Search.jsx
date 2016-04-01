@@ -9,7 +9,6 @@ var Search = React.createClass({
                 <Results />
 
                 <div id="search-form">
-                    <img src="i/logo.png" alt="logo" width="20px" />
                     <SearchInput />
                 </div>
             </div>

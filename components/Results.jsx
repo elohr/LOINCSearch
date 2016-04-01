@@ -41,7 +41,7 @@ var Results = React.createClass({
             isShown = 'show';
             contents = this.state.results.map(function (item, i) {
                 var statusClass = 'active',
-                    method, property, system, time, units;
+                    method, property, system, time, units, match;
 
                 if(item._source.status !== 'ACTIVE') {
                     statusClass = 'other';
@@ -67,15 +67,34 @@ var Results = React.createClass({
                     units = <span className="units">Units: {item._source.units}</span>;
                 }
 
+                var parts = item._source.relatedNames.toLowerCase().split(';');
+                for (var i = 0; i < parts.length; i++) {
+                    if (parts[i].indexOf(t.state.searchString) >= 0) {
+                        match = <span className="alt-name">Rel. Name: {parts[i]}</span>;
+                        break;
+                    }
+                }
+
+                if (match == null) {
+                    for (var i = 0; i < item._source.alts.length; i++) {
+                        if (item._source.alts[i].name.toLowerCase().indexOf(t.state.searchString) >= 0) {
+                            match = <span className="alt-name">Alt. Name: {item._source.alts[i].name}</span>;
+                            break;
+                        }
+                    }
+                }
+
                 return (
                     <li key={item._id} onClick={t._clearSearch} className={statusClass}>
                         <span className="loinc-num">{item._source.loincNum}</span>
                         <span className="name">{item._source.longCommonName}</span>
+                        {match}
                         <div className="left">
                             {property}
                             {system}
                         </div>
                         <div className="right">
+                            <span className="util">Util.: {item._source.utilization}</span>
                             {method}
                             {time}
                             {units}

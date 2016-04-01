@@ -3,7 +3,7 @@
   top: 0;
   right: 0;
   left: 0;
-  padding: 16px;
+  padding: 56px 16px 16px 16px;
   background-color: $brand-color;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
 }
@@ -43,7 +43,7 @@
 }
 
 #search-results.show {
-  margin-top: 180px;
+  margin-top: 200px;
   opacity: 1.0;
 }
 
@@ -83,7 +83,12 @@
   font-weight: 600;
 }
 
-.method, .time-aspect, .units {
+.alt-name {
+  display: block;
+  font-weight: 400 !important;
+}
+
+.method, .time-aspect, .units, .util {
   display: block;
   color: $mid-grey;
   text-align: right;

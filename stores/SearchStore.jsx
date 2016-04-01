@@ -4,11 +4,12 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
     EventEmitter = require('events'),
     assign = require('object-assign');
 
-var BASE_URL = 'http://192.168.2.15:3030/';
-//var BASE_URL = 'http://loinc.r6.io/';
+//var BASE_URL = 'http://192.168.2.15:3030/';
+var BASE_URL = 'http://6d2ecc22.ngrok.io/';
 
 var _results = {
     emptySearch: true,
+    searchString: '',
     results: []
 };
 
@@ -27,6 +28,7 @@ var search = function(text) {
 
                 _results = {
                     emptySearch: false,
+                    searchString: text,
                     results: res.body
                 };
 

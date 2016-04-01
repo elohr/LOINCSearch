@@ -23,7 +23,7 @@ module.exports = {
                         type: 'nGram',
                         min_gram: 2,
                         max_gram: 20,
-                        token_chars: ["letter", "digit"]
+                        token_chars: ["letter"]
                     },
                     length_filter: {
                         type: 'length',
@@ -73,7 +73,11 @@ module.exports = {
                         type: 'string',
                         analyzer: 'nGram_Analyzer',
                         search_analyzer: 'whitespace_analyzer'
-                    }
+                    },
+
+                    utilization: {type: 'integer'},
+                    alts: {type: 'object'}
+
                 }
             }
         }

@@ -14,15 +14,16 @@ router.get('/search/:text', function(req, res) {
         index: configDB.elasticsearch.indexName,
         type: 'loinc',
         body: {
-            size: 5,
+            size: 10,
             query: {
                 multi_match : {
                     query : req.params.text,
-                    fields : ['loincNum', 'component', 'property', 'fullProperty', 'timeAspect', 'fullTimeAspect', 'system', 'fullSystem', 'methodType', 'fullMethodType', 'relatedNames', 'longCommonName']
+                    fields: ['loincNum', 'component', 'property', 'fullProperty', 'timeAspect', 'fullTimeAspect', 'system', 'fullSystem', 'methodType', 'fullMethodType', 'relatedNames', 'longCommonName', 'alts.name']
                 }
             }
         },
-        _source: 'loincNum, fullProperty, fullTimeAspect, fullSystem, fullMethodType, status, units, longCommonName'
+        //_source: 'loincNum, fullProperty, fullTimeAspect, fullSystem, fullMethodType, status, units, longCommonName, utilization, ',//, alts',
+        sort: 'utilization:desc, _score:desc' // [{'utilization': {'order': 'desc'}}, {'_score': {'order': 'desc'}}]
     };
 
     esClient.search(params, function (err, results) {
