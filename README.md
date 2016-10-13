@@ -1,6 +1,6 @@
 ## LOINCSearch
 ### Stack
-**Front End:** React + Flux
+**Front End:** React + Flux.
 
 **Backend:** Node.js and ElasticSearch
 
